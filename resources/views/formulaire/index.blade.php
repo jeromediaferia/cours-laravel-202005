@@ -1,6 +1,8 @@
 @extends('layouts.master')
 @section('content')
-
+    @if(!empty($successMessage))
+        <p>{{ $successMessage }}</p>
+    @endif
     <hr>
     <div>
         <form action="" method="post">

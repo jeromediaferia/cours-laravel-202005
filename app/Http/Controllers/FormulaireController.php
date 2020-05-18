@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\Formulaire;
+use App\Model\Formulaire as FormModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -36,6 +39,21 @@ class FormulaireController extends Controller
                 ->withInput();
         }
 
-        return '';
+        $formulaire = new FormModel();
+        $formulaire->lastname = $values['lastname'];
+        $formulaire->firstname = $values['firstname'];
+        $formulaire->email = $values['email'];
+        $formulaire->message = $values['message'];
+        $formulaire->ip_address = '127.0.0.1';
+        $formulaire->save();
+
+
+        $title = 'Formulaire de contact';
+        $content = $values['lastname'] . ' - ' . $values['firstname'] . '<br>' . $values['message'];
+
+        Mail::to($values['email'])->send(new Formulaire($title, $content));
+
+        return view('formulaire.index')
+            ->with('successMessage', 'Message envoyé !');
     }
 }

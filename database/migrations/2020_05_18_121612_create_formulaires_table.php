@@ -15,6 +15,11 @@ class CreateFormulairesTable extends Migration
     {
         Schema::create('formulaires', function (Blueprint $table) {
             $table->id();
+            $table->string('email');
+            $table->string('lastname');
+            $table->string('firstname');
+            $table->text('message');
+            $table->ipAddress('ip_address');
             $table->timestamps();
         });
     }
