@@ -56,4 +56,37 @@ class FormulaireController extends Controller
         return view('formulaire.index')
             ->with('successMessage', 'Message envoyé !');
     }
+
+    public function singleEntry()
+    {
+        // Récupérer qu'une seule entrée de la base de données
+//        $formulaire = FormModel::find(1)->getAttributes();
+//        dd($formulaire);
+        // Récupérer qu'une seule entrée dont l'email est
+        $formulaire = FormModel::where('email', 'test@test.com')->first();
+
+//        dd($formulaire);
+        // Renvoyer la vue form-list avec les valeurs de la variable $formulaire
+        return view('form-list.index')->with('formulaire', $formulaire);
+
+    }
+
+    public function update()
+    {
+        // Récupérer l'email test@test.com et changer le premier élément que l'on trouve dans la bdd par un autre email
+        $formulaire = FormModel::where('email', 'test@test.com')->first();
+        $formulaire->email = 'toto@test.com';
+
+        // On sauvegarde dans la table
+        $formulaire->save();
+    }
+
+    public function delete()
+    {
+        // On sélectionne le premier élément de la base de données
+        $formulaire = FormModel::find(1);
+
+        // On supprime
+        $formulaire->delete();
+    }
 }

@@ -44,3 +44,4 @@ Route::get('/formulaire', 'FormulaireController@index');
 Route::post('/formulaire', 'FormulaireController@store');
 
 Route::get('/form-list', 'FormListController@index');
+Route::get('/singleEntry', 'FormulaireController@singleEntry');
