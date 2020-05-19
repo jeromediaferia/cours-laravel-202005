@@ -10,8 +10,11 @@ class PortfolioController extends Controller
 {
     public function index()
     {
-//        dd(User::find(1)->portfolios);
-        dd(Portfolio::find(1)->user);
+//        Portfolio::find(1)->user
+        $portfolios = User::find(1)->portfolios()->paginate(1);
+
+        return view('portfolios.index')
+            ->with('portfolios', $portfolios);
 
     }
 }
